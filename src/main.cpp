@@ -105,6 +105,9 @@ void loop()
     server.on("/OFF", []
               { befehl("OFF"); });
 
+    server.on("/TEXT", []
+              { befehl("TEXT"); });
+
     server.onNotFound([]
                       { server.send(200, "text/html", getHomePage()); });
 
