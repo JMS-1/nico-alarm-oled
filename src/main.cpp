@@ -2,8 +2,6 @@
 #include <ESP8266mDNS.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266WiFi.h>
-#include <U8g2lib.h>
-#include <Wire.h>
 
 #include "animation.h"
 
@@ -50,7 +48,7 @@ void befehl(String cmd)
       cmd = text;
   }
 
-  Animation::writeText(cmd);
+  Animation::startAnimation(cmd);
 
   server.send(204);
 }
@@ -113,9 +111,9 @@ void loop()
     server.begin();
   }
 
-  Animation::writeText("");
-
   server.handleClient();
 
   MDNS.update();
+
+  Animation::animate();
 }
