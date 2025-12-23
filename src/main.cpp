@@ -40,7 +40,7 @@ void connect()
 
 void befehl(String cmd)
 {
-  if (server.hasArg("text"))
+  if (!cmd.isEmpty() && server.hasArg("text"))
   {
     auto text = server.arg("text");
 
@@ -103,7 +103,7 @@ void loop()
               { befehl("YY"); });
 
     server.on("/OFF", []
-              { befehl("OFF"); });
+              { befehl(""); });
 
     server.on("/TEXT", []
               { befehl("TEXT"); });

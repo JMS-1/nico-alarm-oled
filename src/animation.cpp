@@ -33,7 +33,7 @@ void blackOut()
 void Animation::startAnimation(const String &message)
 {
     animation = message;
-    step = 0;
+    step = message.isEmpty() ? -1 : 0;
 }
 
 void Animation::animate()
@@ -53,6 +53,8 @@ void Animation::animate()
         case 8:
             whiteOut();
 
+            blank = false;
+
             break;
         case 1:
         case 3:
@@ -60,6 +62,8 @@ void Animation::animate()
         case 7:
         case 9:
             blackOut();
+
+            blank = true;
 
             break;
         case 10:
@@ -72,6 +76,8 @@ void Animation::animate()
             u8g2.drawUTF8(-shift, 23, animation.c_str());
             u8g2.sendBuffer();
 
+            blank = false;
+
             delay(shift ? 10 : 1000);
 
             // More to shift - keep step.
@@ -82,8 +88,6 @@ void Animation::animate()
         case 12:
             // Final wait - maybe we can not receive new commands for five seconds but this will not matter.
             delay(5000 - max(1500, 990 + 10 * width));
-
-            blank = false;
 
             // Go back to idle after three repetitions.
             if (step == 39)
