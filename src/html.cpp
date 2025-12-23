@@ -82,7 +82,7 @@ const char *homePage = "\n\
         }\n\
 \n\
         function rg() {\n\
-            return request('RG?text=rot-gruen')\n\
+            return request('RG?text=rot-gr%C3%BCn')\n\
         }\n\
 \n\
         function ry() {\n\
@@ -90,15 +90,15 @@ const char *homePage = "\n\
         }\n\
 \n\
         function gr() {\n\
-            return request('GR?text=gruen-rot')\n\
+            return request('GR?text=gr%C3%BCn-rot')\n\
         }\n\
 \n\
         function gg() {\n\
-            return request('GG?text=gruen-gruen')\n\
+            return request('GG?text=gr%C3%BCn-gr%C3%BCn')\n\
         }\n\
 \n\
         function gy() {\n\
-            return request('GY?text=gruen-gelb')\n\
+            return request('GY?text=gr%C3%BCn-gelb')\n\
         }\n\
 \n\
 \n\
@@ -107,7 +107,7 @@ const char *homePage = "\n\
         }\n\
 \n\
         function yg() {\n\
-            return request('YG?text=gelb-gruen')\n\
+            return request('YG?text=gelb-gr%C3%BCn')\n\
         }\n\
 \n\
         function yy() {\n\

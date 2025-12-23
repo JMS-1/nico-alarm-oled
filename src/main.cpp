@@ -5,25 +5,15 @@
 #include <U8g2lib.h>
 #include <Wire.h>
 
-const char *getHomePage(void);
+#include "animation.h"
 
-U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2(U8G2_R0, 16);
+const char *getHomePage(void);
 
 ESP8266WebServer server(80);
 
 WiFiClient client;
 
-bool blank = false;
 bool startMDNS = true;
-
-void writeText(const String &message)
-{
-  u8g2.clearBuffer();
-  u8g2.drawStr(0, 21, message.c_str());
-  u8g2.sendBuffer();
-
-  blank = message.isEmpty();
-}
 
 void setup()
 {
@@ -31,8 +21,7 @@ void setup()
 
   pinMode(GPIO_AS_PIN_SOURCE, INPUT_PULLUP);
 
-  u8g2.begin();
-  u8g2.setFont(u8g2_font_ncenB10_tr);
+  Animation::setup();
 
   WiFi.mode(WIFI_STA);
 
@@ -45,7 +34,7 @@ void setup()
 
 void connect()
 {
-  writeText("WPS");
+  Animation::writeText("WPS");
 
   WiFi.disconnect();
   WiFi.beginWPSConfig();
@@ -61,7 +50,7 @@ void befehl(String cmd)
       cmd = text;
   }
 
-  writeText(cmd);
+  Animation::writeText(cmd);
 
   server.send(204);
 }
@@ -77,7 +66,7 @@ void loop()
 
   if (WiFi.status() != WL_CONNECTED)
   {
-    writeText(WiFi.SSID().isEmpty() ? "kein WiFi" : "...");
+    Animation::writeText(WiFi.SSID().isEmpty() ? "kein WiFi" : "...");
 
     return;
   }
@@ -124,12 +113,7 @@ void loop()
     server.begin();
   }
 
-  if (!blank)
-  {
-    delay(1000);
-
-    writeText("");
-  }
+  Animation::writeText("");
 
   server.handleClient();
 
