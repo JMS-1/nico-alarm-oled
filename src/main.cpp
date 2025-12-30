@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <ESP8266mDNS.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266WiFi.h>
 
@@ -11,7 +10,7 @@ ESP8266WebServer server(80);
 
 WiFiClient client;
 
-bool startMDNS = true;
+bool startWebServer = true;
 
 void setup()
 {
@@ -69,11 +68,9 @@ void loop()
     return;
   }
 
-  if (startMDNS)
+  if (startWebServer)
   {
-    startMDNS = false;
-
-    MDNS.begin("esp8266");
+    startWebServer = false;
 
     server.on("/RR", []
               { befehl("RR"); });
@@ -115,8 +112,6 @@ void loop()
   }
 
   server.handleClient();
-
-  MDNS.update();
 
   Animation::animate();
 }
